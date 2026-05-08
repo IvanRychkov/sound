@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivan Rychkov — Sound Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #fafaf8;
+    --text: #1a1a18;
+    --text-secondary: #6b6b67;
+    --text-tertiary: #a0a09a;
+    --border: rgba(0,0,0,0.1);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 2rem 6rem;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 8vw, 64px);
+    line-height: 1.0;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  h1 em { font-style: italic; }
+
+  .subtitle {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 3rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 0.5px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .bio {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin-bottom: 1rem;
+  }
+
+  .bio strong { color: var(--text); font-weight: 500; }
+
+  .sec-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.85rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .tag {
+    font-size: 13px;
+    color: var(--text-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 14px;
+  }
+
+  .artists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .acard {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 10px 14px;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    line-height: 1.4;
+  }
+
+  .acard span {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 3px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .c-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+  }
+
+  .c-val {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(0,0,0,0.25);
+    padding-bottom: 1px;
+  }
+
+  .c-val:hover { border-bottom-color: var(--text); }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 3rem 1.25rem 4rem; }
+    .stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Sound engineer · Belgrade</p>
+  <h1>Ivan<br><em>Rychkov</em></h1>
+  <p class="subtitle">Live sound, club format, real music.</p>
+
+  <hr>
+
+  <!-- ======= STATS — редактировать здесь ======= -->
+  <div class="stats" id="stats"></div>
+  <script>
+    const STATS = [
+      { num: '1000+', label: 'Live shows' },
+      { num: '2016',  label: 'Since' },
+      { num: 'МГИК',  label: 'Education' },
+    ];
+  </script>
+  <!-- =========================================== -->
+
+  <p class="bio">Специализируюсь на <strong>клубном формате</strong> — там, где важны не только децибелы, но и атмосфера. Работал с джазом, блюзом, фанком, роком. С корпоративами тоже — куда же без них.</p>
+  <p class="bio">Сейчас в <strong>Белграде</strong>. Английский свободно, с местными техниками договорюсь, сербский учу.</p>
+
+  <hr>
+
+  <!-- ======= ПЛОЩАДКИ — редактировать здесь ======= -->
+  <script>
+    const VENUES = [
+      'Клуб Алексея Козлова',
+      'Jam Club Андрея Макаревича',
+      '',
+      'Hard Rock Cafe, МСК',
+      '16 Тонн Арбат, МСК',
+      'Зарядье, МСК',
+      'Лужники, МСК',
+      'Юсуповский сад, СПб',
+    ];
+  </script>
+  <!-- =============================================== -->
+
+  <p class="sec-lbl">Площадки</p>
+  <div class="tags" id="venues"></div>
+
+  <!-- ======= АРТИСТЫ — редактировать здесь ======= -->
+  <script>
+    const ARTISTS = [
+      { name: 'Голос Омерики',        sub: 'Белград' },
+      { name: 'Coffee Shop Kollektive', sub: 'Белград' },
+      { name: 'Zventa Sventana',      sub: 'гастроли' },
+      { name: 'Ольга Синяева',        sub: 'гастроли' },
+      { name: 'Алексей Козлов и "Арсенал"', sub: 'клуб' },
+      { name: 'Андрей Макаревич',     sub: 'клуб' },
+    ];
+  </script>
+  <!-- ============================================== -->
+
+  <p class="sec-lbl">Артисты</p>
+  <div class="artists-grid" id="artists"></div>
+
+  <hr>
+
+  <!-- ======= КОНТАКТ — редактировать здесь ======= -->
+  <script>
+    const CONTACT = {
+      label: 'Telegram',
+      value: '@ivan_rychkov',
+      href:  'https://t.me/ivan_rychkov',
+    };
+  </script>
+  <!-- ============================================== -->
+
+  <p class="sec-lbl">Контакт</p>
+  <div class="contact-row" id="contact"></div>
+
+</div>
+
+<script>
+  STATS.forEach(s => {
+    const el = document.createElement('div');
+    el.innerHTML = `<div class="stat-num">${s.num}</div><div class="stat-lbl">${s.label}</div>`;
+    document.getElementById('stats').appendChild(el);
+  });
+
+  VENUES.forEach(v => {
+    const el = document.createElement('div');
+    el.className = 'tag';
+    el.textContent = v;
+    document.getElementById('venues').appendChild(el);
+  });
+
+  ARTISTS.forEach(a => {
+    const el = document.createElement('div');
+    el.className = 'acard';
+    el.innerHTML = `${a.name}<span>${a.sub}</span>`;
+    document.getElementById('artists').appendChild(el);
+  });
+
+  const c = document.getElementById('contact');
+  c.innerHTML = `<span class="c-lbl">${CONTACT.label}</span><a class="c-val" href="${CONTACT.href}">${CONTACT.value}</a>`;
+</script>
+
+</body>
+</html>
