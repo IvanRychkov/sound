@@ -374,3 +374,13 @@ mediaQuery.addEventListener('change', (e) => {
 
 btnLight?.addEventListener('click', () => setTheme('light'));
 btnDark?.addEventListener('click', () => setTheme('dark'));
+
+// Сброс прокрутки при загрузке страницы с хешем
+window.addEventListener('load', () => {
+    if (window.location.hash) {
+        // Прокручиваем в начало
+        window.scrollTo(0, 0);
+        // Очищаем хеш из URL без перезагрузки страницы
+        history.replaceState(null, null, window.location.pathname + window.location.search);
+    }
+});
