@@ -10,13 +10,18 @@
 </head>
 <body>
 <div class="wrap">
-
-  <p class="eyebrow">Sound engineer · Belgrade</p>
-  <h1>Ivan<br><em>Rychkov</em></h1>
+  <div class="header-meta">
+    <p class="eyebrow">Sound engineer · Belgrade</p>
+    <div class="theme-switcher">
+      <button class="theme-btn" id="theme-light" aria-label="Светлая тема">☼ Light</button>
+      <button class="theme-btn" id="theme-dark" aria-label="Тёмная тема">☾ Dark</button>
+    </div>
+  </div>
+  <h1>Ivan<br><em>Rychkov</em> <span id="age-badge"></span></h1>
   <p class="subtitle">Live sound, club format, real music.</p>
 
   <div class="photo-wrap">
-    <img src="avatar.jpg" alt="Иван Рычков за пультом" class="photo">
+    <img src="avatar.jpg" alt="Иван Рычков с планшетом рулит концерт" class="photo">
   </div>
 
   <hr>
@@ -27,16 +32,19 @@
 
   <p class="sec-lbl">Обо мне</p>
 
-  <p class="bio">Я – <strong>Иван, концертный звукорежиссёр</strong>!</p>
-  <p class="bio">В профессии с 2016 года. Ближе всего <strong>клубный формат</strong> — там, где особенно важна атмосфера. Работал с джазом, блюзом, фанком, роком. Гастроли, корпоративы, кавера, джемы — чего только не было.</p>
-  <p class="bio">Ищу Сейчас предпочитаю проектную работу.</p>
-  <p class="bio">Сейчас живу в <strong>Белграде</strong>. Свободно говорю по-английски, могу договориться с местным техперсоналом.</p>
+  <p class="bio">Привет!</p>
+  <p class="bio">Я – <strong>Иван Рычков, концертный звукорежиссёр</strong>!</p>
+  <p class="bio">В профессии <span class="tooltip-wrap">с 2016 года<span class="tooltip-text">С 2011, если считать институт...с 2009, если считать демки на диктофон...с прошлого века, если считать вообще всё.</span></span>. Работал везде: от открытых площадок и уютных клубов до джемов, свадеб, корпоративов, отчётных концертов, поэтому ничему уже не удивляюсь.</p>
+  <p class="bio">Ближе всего клубный формат концертов. 5 лет в Клубе Алексея Козлова – моя главная школа (FOH + MON).</p>
+  <p class="bio">Сейчас предпочитаю <strong>проектную работу</strong>, где можно качественно подготовиться и выложиться на полную.</p>
+  <p class="bio">Нахожусь в <strong>Белграде</strong> (интересно, почему). Свободно говорю по-английски, могу общаться с местным техперсоналом.</p>
+  <p class="bio">Если вы артист (или организуете концерты) и ищете для себя <strong>хороший звук и комфортную атмосферу непринуждённости</strong>, с удовольствием возьму ваш концерт!</p>
 
   <hr>
 
   <section id="venues-section">
     <p class="sec-lbl">Площадки</p>
-    <div class="tags" id="venues"></div>
+    <div class="artists-grid" id="venues"></div>
   </section>
 
   <section id="artists-section">
@@ -58,7 +66,7 @@
   <hr>
 
   <section id="contact-section">
-    <p class="sec-lbl">Контакт</p>
+    <p class="sec-lbl">Контакты</p>
     <div class="contacts-list" id="contact"></div>
   </section>
 

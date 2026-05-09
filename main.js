@@ -9,20 +9,21 @@ const STATS = [
 ];
 
 const VENUES = [
-    'Клуб Алексея Козлова',
-    'Jam Club Андрея Макаревича',
-    'Hard Rock Cafe, МСК',
-    '16 Тонн Арбат, МСК',
-    'Зарядье, МСК',
-    'Лужники, МСК',
-    'Юсуповский сад, СПб',
+    {name: 'Клуб Алексея Козлова', sub: 'Москва'},
+    {name: 'Jam Club Андрея Макаревича', sub: 'Москва'},
+    {name: 'Hard Rock Cafe', sub: 'Москва'},
+    {name: '16 Тонн Арбат', sub: 'Москва'},
+    {name: 'Зарядье', sub: 'Москва'},
+    {name: 'Парк "Лужники"', sub: 'Москва'},
+    {name: 'Юсуповский сад', sub: 'Санкт-Петербург'},
+    {name: 'Гастроли', sub: 'Краснодар, Сочи, Владивосток, Хабаровск, Воронеж, Суздаль, Бали (а он как тут оказался?)'},
 ];
 
 const ARTISTS = [
     {name: 'Голос Омерики', sub: 'Белград'},
     {name: 'Coffee Shop Kollektiv', sub: 'Белград'},
     {name: 'Zventa Sventana', sub: 'гастроли'},
-    {name: 'Ольга Синяева', sub: 'гастроли'},
+    {name: 'Ольга Синяева & AllSee Band', sub: 'гастроли'},
     {name: 'Алексей Козлов и "Арсенал"', sub: 'клуб'},
 ];
 
@@ -41,12 +42,16 @@ const CONCERTS = [
 // Контакты — можно добавить несколько
 const CONTACTS = [
     {service: 'Telegram', handle: '@ivan_rychkov', href: 'https://t.me/ivan_rychkov'},
+    {service: 'Instagram', handle: '@ivanrychkov', href: 'https://www.instagram.com/ivanrychkov/'},
 ];
 
 const SKILLS = [
-    {name: 'Live Sound', sub: 'FOH / Monitor'},
-    {name: 'Yamaha CL'},
-    {name: 'Музыкальные жанры', sub: 'джаз, блюз, рок, фанк'},
+    {name: 'Live Sound', sub: 'FOH / MON'},
+    {name: 'Yamaha', sub: "CL, QL"},
+    {name: 'Allen&Heath', sub: "dLive, GLD, Q, SQ"},
+    {name: 'Behringer', sub: "X32, Wing"},
+    {name: 'Поканальная запись концертов'},
+    // {name: 'Музыкальные жанры', sub: 'джаз, блюз, рок, фанк'},
 ];
 
 const FRIENDS = [
@@ -95,11 +100,30 @@ function renderStats() {
     renderCollection(STATS, 'stats', 'stats-section', s => {
         return `<div><div class="stat-num">${s.num}</div><div class="stat-lbl">${s.label}</div></div>`;
     });
+    updateAge();
+}
+
+function updateAge() {
+    const ageEl = document.getElementById('age-badge');
+    if (!ageEl) return;
+    
+    // Дата рождения: 3 сентября 1993, 09:00 MSK (UTC+3)
+    const birthDate = new Date('1993-09-03T09:00:00+03:00');
+    const now = new Date();
+    
+    let age = now.getFullYear() - birthDate.getFullYear();
+    const m = now.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    
+    ageEl.textContent = `${age} y.o.`;
 }
 
 function renderVenues() {
     renderCollection(VENUES, 'venues', 'venues-section', v => {
-        return `<div class="tag">${v}</div>`;
+        const subHtml = v.sub ? `<span>${v.sub}</span>` : '';
+        return `<div class="acard">${v.name}${subHtml}</div>`;
     });
 }
 
@@ -167,3 +191,48 @@ renderSkills();
 renderConcerts();
 renderContacts();
 renderFriends();
+
+// =============================================
+//  ЛОГИКА ТЁМНОЙ ТЕМЫ
+// =============================================
+
+const btnLight = document.getElementById('theme-light');
+const btnDark = document.getElementById('theme-dark');
+const currentTheme = localStorage.getItem('theme');
+
+function setTheme(theme, save = true) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (save) {
+        localStorage.setItem('theme', theme);
+    }
+
+    if (theme === 'dark') {
+        btnDark?.classList.add('active');
+        btnLight?.classList.remove('active');
+    } else {
+        btnLight?.classList.add('active');
+        btnDark?.classList.remove('active');
+    }
+}
+
+// Инициализация при загрузке
+const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+if (currentTheme) {
+    setTheme(currentTheme);
+} else {
+    // Если в localStorage пусто, просто применяем системную тему БЕЗ сохранения
+    setTheme(mediaQuery.matches ? 'dark' : 'light', false);
+}
+
+// Слушатель изменения системной темы
+mediaQuery.addEventListener('change', (e) => {
+    // Если пользователь вручную не выбирал тему (нет записи в localStorage),
+    // тогда меняем её вслед за системой
+    if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light', false);
+    }
+});
+
+btnLight?.addEventListener('click', () => setTheme('light'));
+btnDark?.addEventListener('click', () => setTheme('dark'));
