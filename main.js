@@ -34,7 +34,7 @@ const CONCERTS = [
   //   date: '2025-04-15',       // YYYY-MM-DD, отображается как «15 апр»
   //   artist: 'Голос Омерики',
   //   city: 'Белград',
-  //   venue: 'Ben Akiba',
+  //   venue: '',
   //   link: null,               // опционально: ссылка на Instagram-пост или фото
   // },
 ];
