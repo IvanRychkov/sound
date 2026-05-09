@@ -60,6 +60,7 @@
 .tooltip-text {
   visibility: hidden;
   width: 240px;
+  max-width: calc(100vw - 40px); /* Чтобы не прилипал к краям экрана */
   background-color: var(--bg);
   color: var(--text-secondary);
   text-align: left;
@@ -69,7 +70,8 @@
   position: absolute;
   z-index: 10;
   bottom: 125%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s;
   font-family: 'DM Mono', monospace;
@@ -98,6 +100,7 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   line-height: 1.7;
+  overflow-x: hidden;
 }
 
 .wrap {

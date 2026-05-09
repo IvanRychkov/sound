@@ -104,23 +104,32 @@ function renderStats() {
         return `<div><div class="stat-num">${numContent}</div><div class="stat-lbl">${s.label}</div></div>`;
     });
     updateAge();
+    initTooltips(); // Переинициализируем для новых элементов
 }
 
 function updateAge() {
     const ageEl = document.getElementById('age-badge');
     if (!ageEl) return;
     
-    // Дата рождения: 3 сентября 1993, 09:00 MSK (UTC+3)
-    const birthDate = new Date('1993-09-03T09:00:00+03:00');
+    // Дата рождения: 3 сентября 1993
+    const birthYear = 1993;
+    const birthMonth = 8; // Сентябрь (0-11)
+    const birthDay = 3;
+
     const now = new Date();
-    
-    let age = now.getFullYear() - birthDate.getFullYear();
-    const m = now.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+    const nowYear = now.getFullYear();
+    const nowMonth = now.getMonth();
+    const nowDay = now.getDate();
+
+    let age = nowYear - birthYear;
+    if (nowMonth < birthMonth || (nowMonth === birthMonth && nowDay < birthDay)) {
         age--;
     }
-    
-    ageEl.textContent = `${age} y.o.`;
+
+    const isBirthday = nowMonth === birthMonth && nowDay === birthDay;
+    const suffix = isBirthday ? ' y.o. 🎉' : ' y.o.';
+
+    ageEl.textContent = `${age}${suffix}`;
 }
 
 function renderVenues() {
@@ -195,6 +204,45 @@ renderConcerts();
 renderContacts();
 renderFriends();
 initGallery();
+initTooltips();
+
+// =============================================
+//  ЛОГИКА ТУЛТИПОВ (корректировка позиции)
+// =============================================
+
+function initTooltips() {
+    const wraps = document.querySelectorAll('.tooltip-wrap');
+    
+    wraps.forEach(wrap => {
+        // Убеждаемся, что обработчик вешается только один раз
+        if (wrap.dataset.tooltipInitialized) return;
+        wrap.dataset.tooltipInitialized = "true";
+
+        wrap.addEventListener('mouseenter', () => {
+            const text = wrap.querySelector('.tooltip-text');
+            if (!text) return;
+
+            // Сначала сбрасываем стили, чтобы сделать чистый замер
+            text.style.left = '50%';
+            text.style.transform = 'translateX(-50%)';
+
+            const rect = text.getBoundingClientRect();
+            const padding = 20; // Отступ от края экрана
+
+            let offset = 0;
+            if (rect.left < padding) {
+                offset = padding - rect.left;
+            } else if (rect.right > window.innerWidth - padding) {
+                offset = window.innerWidth - padding - rect.right;
+            }
+
+            if (offset !== 0) {
+                // Сдвигаем тултип, учитывая центрирование
+                text.style.left = `calc(50% + ${offset}px)`;
+            }
+        });
+    });
+}
 
 // =============================================
 //  ЛОГИКА ГАЛЕРЕИ
