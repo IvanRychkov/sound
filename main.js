@@ -5,7 +5,7 @@
 const STATS = [
     {num: '1000+', label: 'Live shows'},
     {num: '2016', label: 'Since'},
-    {num: 'МГИК', label: 'Education'},
+    {num: 'МГИК', label: 'Education', tooltip: 'Московский государственный институт культуры, "Звукорежиссура культурно-массовых мероприятий и концертных программ"'},
 ];
 
 const VENUES = [
@@ -16,7 +16,7 @@ const VENUES = [
     {name: 'Зарядье', sub: 'Москва'},
     {name: 'Парк "Лужники"', sub: 'Москва'},
     {name: 'Юсуповский сад', sub: 'Санкт-Петербург'},
-    {name: 'Гастроли', sub: 'Краснодар, Сочи, Владивосток, Хабаровск, Воронеж, Суздаль, Бали (а он как тут оказался?)'},
+    {name: 'Гастроли', sub: 'Краснодар, Сочи, Владивосток, Хабаровск, Воронеж, Суздаль, Бали (а он тут как оказался?)'},
 ];
 
 const ARTISTS = [
@@ -98,7 +98,10 @@ function renderCollection(data, containerId, sectionId, renderFn) {
 
 function renderStats() {
     renderCollection(STATS, 'stats', 'stats-section', s => {
-        return `<div><div class="stat-num">${s.num}</div><div class="stat-lbl">${s.label}</div></div>`;
+        const numContent = s.tooltip 
+            ? `<div class="tooltip-wrap">${s.num}<span class="tooltip-text">${s.tooltip}</span></div>` 
+            : s.num;
+        return `<div><div class="stat-num">${numContent}</div><div class="stat-lbl">${s.label}</div></div>`;
     });
     updateAge();
 }
@@ -191,6 +194,41 @@ renderSkills();
 renderConcerts();
 renderContacts();
 renderFriends();
+initGallery();
+
+// =============================================
+//  ЛОГИКА ГАЛЕРЕИ
+// =============================================
+
+function initGallery() {
+    const gallery = document.getElementById('photo-gallery');
+    if (!gallery) return;
+
+    const wraps = gallery.querySelectorAll('.photo-wrap');
+    const btnPrev = document.getElementById('gallery-prev');
+    const btnNext = document.getElementById('gallery-next');
+
+    if (wraps.length <= 1) {
+        if (wraps.length === 1) wraps[0].classList.add('active');
+        return;
+    }
+
+    // Показываем кнопки, если больше одного фото
+    if (btnPrev) btnPrev.style.display = 'block';
+    if (btnNext) btnNext.style.display = 'block';
+
+    let currentIndex = 0;
+    wraps[currentIndex].classList.add('active');
+
+    function showPhoto(index) {
+        wraps[currentIndex].classList.remove('active');
+        currentIndex = (index + wraps.length) % wraps.length;
+        wraps[currentIndex].classList.add('active');
+    }
+
+    btnPrev?.addEventListener('click', () => showPhoto(currentIndex - 1));
+    btnNext?.addEventListener('click', () => showPhoto(currentIndex + 1));
+}
 
 // =============================================
 //  ЛОГИКА ТЁМНОЙ ТЕМЫ
