@@ -214,20 +214,18 @@ function initTooltips() {
     const wraps = document.querySelectorAll('.tooltip-wrap');
     
     wraps.forEach(wrap => {
-        // Убеждаемся, что обработчик вешается только один раз
         if (wrap.dataset.tooltipInitialized) return;
         wrap.dataset.tooltipInitialized = "true";
 
-        wrap.addEventListener('mouseenter', () => {
-            const text = wrap.querySelector('.tooltip-text');
-            if (!text) return;
+        const text = wrap.querySelector('.tooltip-text');
+        if (!text) return;
 
-            // Сначала сбрасываем стили, чтобы сделать чистый замер
+        function adjustPosition() {
             text.style.left = '50%';
             text.style.transform = 'translateX(-50%)';
 
             const rect = text.getBoundingClientRect();
-            const padding = 20; // Отступ от края экрана
+            const padding = 20;
 
             let offset = 0;
             if (rect.left < padding) {
@@ -237,12 +235,40 @@ function initTooltips() {
             }
 
             if (offset !== 0) {
-                // Сдвигаем тултип, учитывая центрирование
                 text.style.left = `calc(50% + ${offset}px)`;
+            }
+        }
+
+        wrap.addEventListener('mouseenter', adjustPosition);
+
+        // Поддержка клика для мобильных устройств
+        wrap.addEventListener('click', (e) => {
+            // Если это мобильное устройство или тач
+            const isTouch = window.matchMedia('(pointer: coarse)').matches;
+            if (isTouch) {
+                e.stopPropagation();
+                const isActive = wrap.classList.contains('active');
+                
+                // Закрываем все остальные активные тултипы
+                document.querySelectorAll('.tooltip-wrap.active').forEach(el => {
+                    if (el !== wrap) el.classList.remove('active');
+                });
+
+                wrap.classList.toggle('active');
+                if (wrap.classList.contains('active')) {
+                    adjustPosition();
+                }
             }
         });
     });
 }
+
+// Закрытие тултипов при клике мимо
+document.addEventListener('click', () => {
+    document.querySelectorAll('.tooltip-wrap.active').forEach(el => {
+        el.classList.remove('active');
+    });
+});
 
 // =============================================
 //  ЛОГИКА ГАЛЕРЕИ
