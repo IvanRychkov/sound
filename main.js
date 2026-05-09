@@ -241,23 +241,49 @@ function initTooltips() {
 
         wrap.addEventListener('mouseenter', adjustPosition);
 
-        // Поддержка клика для мобильных устройств
-        wrap.addEventListener('click', (e) => {
-            // Если это мобильное устройство или тач
-            const isTouch = window.matchMedia('(pointer: coarse)').matches;
-            if (isTouch) {
-                e.stopPropagation();
-                const isActive = wrap.classList.contains('active');
-                
-                // Закрываем все остальные активные тултипы
-                document.querySelectorAll('.tooltip-wrap.active').forEach(el => {
-                    if (el !== wrap) el.classList.remove('active');
-                });
+        let touchStartY = 0;
+        let touchStartX = 0;
 
-                wrap.classList.toggle('active');
-                if (wrap.classList.contains('active')) {
-                    adjustPosition();
-                }
+        wrap.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+        }, {passive: true});
+
+        // Поддержка клика для мобильных устройств
+        wrap.addEventListener('touchend', (e) => {
+            const isTouch = window.matchMedia('(pointer: coarse)').matches;
+            if (!isTouch) return;
+
+            const touchEndY = e.changedTouches[0].clientY;
+            const touchEndX = e.changedTouches[0].clientX;
+
+            // Если палец сместился более чем на 10px — это скролл, а не тап
+            if (Math.abs(touchEndY - touchStartY) > 10 || Math.abs(touchEndX - touchStartX) > 10) {
+                return;
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isActive = wrap.classList.contains('active');
+            
+            // Закрываем все остальные активные тултипы
+            document.querySelectorAll('.tooltip-wrap.active').forEach(el => {
+                if (el !== wrap) el.classList.remove('active');
+            });
+
+            wrap.classList.toggle('active');
+            if (wrap.classList.contains('active')) {
+                adjustPosition();
+            }
+        });
+
+        wrap.addEventListener('click', (e) => {
+            // На десктопе работает hover, но клик тоже может быть
+            const isTouch = window.matchMedia('(pointer: coarse)').matches;
+            if (!isTouch) {
+                // Обычный клик на десктопе (если нужно)
+                // Для десктопа оставляем поведение hover из CSS
             }
         });
     });
