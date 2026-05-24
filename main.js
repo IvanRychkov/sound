@@ -9,6 +9,7 @@ const STATS = [
 ];
 
 const VENUES = [
+    {name: 'Zappa Baza', sub: 'Белград'},
     {name: 'Клуб Алексея Козлова', sub: 'Москва'},
     {name: 'Jam Club Андрея Макаревича', sub: 'Москва'},
     {name: 'Hard Rock Cafe', sub: 'Москва'},
