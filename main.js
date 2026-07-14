@@ -395,10 +395,12 @@ window.addEventListener('load', () => {
     const available = await fetch('locales/index.json').then(r => r.json());
 
     const saved = localStorage.getItem('lang');
-    const browser = navigator.language.split('-')[0];
+    const preferred = Array.from(navigator.languages ?? [navigator.language])
+        .map(l => l.split('-')[0]);
+    const browser = preferred.filter(l => l !== 'en').find(l => available.includes(l))
+                 ?? preferred.find(l => available.includes(l));
     const initial = (saved && available.includes(saved)) ? saved
-                  : available.includes(browser) ? browser
-                  : available[0];
+                  : browser ?? available[0];
 
     await loadAndApply(initial);
     initGallery();
