@@ -11,23 +11,24 @@
 <body>
 <div class="wrap">
   <div class="header-meta">
-    <p class="eyebrow">Sound engineer · Belgrade</p>
+    <p class="eyebrow" data-i18n="ui.eyebrow">Sound engineer · Belgrade</p>
     <div class="theme-switcher">
-      <a href="#contact-section" class="nav-link">Contacts</a>
-      <button class="theme-btn" id="theme-light" aria-label="Светлая тема">☼ Light</button>
-      <button class="theme-btn" id="theme-dark" aria-label="Тёмная тема">☾ Dark</button>
+      <a href="#contact-section" class="nav-link" data-i18n="ui.contacts_link">Contacts</a>
+      <button class="theme-btn" id="lang-btn"></button>
+      <button class="theme-btn" id="theme-light" data-i18n="ui.theme_light" data-i18n-aria="ui.aria_light">☼ Light</button>
+      <button class="theme-btn" id="theme-dark" data-i18n="ui.theme_dark" data-i18n-aria="ui.aria_dark">☾ Dark</button>
     </div>
   </div>
   <h1>Ivan<br><em>Rychkov</em> <span id="age-badge"></span></h1>
-  <p class="subtitle">Live sound, club format, real music.</p>
+  <p class="subtitle" data-i18n="ui.subtitle">Live sound, club format, real music.</p>
 
   <div class="photo-gallery" id="photo-gallery">
     <div class="photo-wrap">
-      <img src="avatar.jpg" alt="Иван Рычков с планшетом рулит концерт" class="photo">
+      <img src="avatar.jpg" data-i18n-alt="ui.photo_alt" alt="Иван Рычков с планшетом рулит концерт" class="photo">
     </div>
     <!-- Сюда можно добавить еще <div class="photo-wrap"> -->
-    <button class="gallery-btn prev" id="gallery-prev" aria-label="Предыдущее фото">←</button>
-    <button class="gallery-btn next" id="gallery-next" aria-label="Следующее фото">→</button>
+    <button class="gallery-btn prev" id="gallery-prev" data-i18n-aria="ui.aria_prev" aria-label="Предыдущее фото">←</button>
+    <button class="gallery-btn next" id="gallery-next" data-i18n-aria="ui.aria_next" aria-label="Следующее фото">→</button>
   </div>
 
   <hr>
@@ -36,49 +37,51 @@
     <div class="stats" id="stats"></div>
   </section>
 
-  <p class="sec-lbl">Обо мне</p>
+  <p class="sec-lbl" data-i18n="ui.sec_about">Обо мне</p>
 
-  <p class="bio">Привет!</p>
-  <p class="bio">Я – <strong>Иван Рычков, концертный звукорежиссёр</strong>!</p>
-  <p class="bio">В профессии <span class="tooltip-wrap">с 2016 года<span class="tooltip-text">С 2011, если считать институт...с 2009, если считать демки на диктофон...с прошлого века, если считать вообще всё.</span></span>. Работал везде: от открытых площадок и уютных клубов до джемов, свадеб, корпоративов, отчётных концертов, поэтому ничему уже не удивляюсь.</p>
-  <p class="bio">Ближе всего клубный формат концертов. 5&nbsp;лет в Клубе Алексея Козлова – моя главная школа (FOH + MON).</p>
-  <p class="bio">Сейчас предпочитаю <strong>проектную работу</strong>, где можно качественно подготовиться и выложиться на полную.</p>
-  <p class="bio">Нахожусь в <strong>Белграде</strong> (интересно, почему). Свободно говорю по-английски, могу общаться с местным техперсоналом.</p>
-  <p class="bio">Если вы артист (или организуете концерты) и цените <strong>хороший звук и комфортное взаимодействие</strong> —&nbsp;с удовольствием возьму ваш концерт!</p>
+  <div id="bio-container">
+    <p class="bio">Привет!</p>
+    <p class="bio">Я – <strong>Иван Рычков, концертный звукорежиссёр</strong>!</p>
+    <p class="bio">В профессии <span class="tooltip-wrap">с 2016 года<span class="tooltip-text">С 2011, если считать институт...с 2009, если считать демки на диктофон...с прошлого века, если считать вообще всё.</span></span>. Работал везде: от открытых площадок и уютных клубов до джемов, свадеб, корпоративов, отчётных концертов, поэтому ничему уже не удивляюсь.</p>
+    <p class="bio">Ближе всего клубный формат концертов. 5&nbsp;лет в Клубе Алексея Козлова – моя главная школа (FOH + MON).</p>
+    <p class="bio">Сейчас предпочитаю <strong>проектную работу</strong>, где можно качественно подготовиться и выложиться на полную.</p>
+    <p class="bio">Нахожусь в <strong>Белграде</strong> (интересно, почему). Свободно говорю по-английски, могу общаться с местным техперсоналом.</p>
+    <p class="bio">Если вы артист (или организуете концерты) и цените <strong>хороший звук и комфортное взаимодействие</strong> —&nbsp;с удовольствием возьму ваш концерт!</p>
+  </div>
 
   <hr>
 
   <section id="venues-section">
-    <p class="sec-lbl">Площадки</p>
+    <p class="sec-lbl" data-i18n="ui.sec_venues">Площадки</p>
     <div class="artists-grid" id="venues"></div>
   </section>
 
   <section id="artists-section">
-    <p class="sec-lbl">Артисты</p>
+    <p class="sec-lbl" data-i18n="ui.sec_artists">Артисты</p>
     <div class="artists-grid" id="artists"></div>
   </section>
 
   <section id="skills-section">
-    <p class="sec-lbl">Навыки</p>
+    <p class="sec-lbl" data-i18n="ui.sec_skills">Навыки</p>
     <div class="artists-grid" id="skills"></div>
   </section>
 
   <section id="concerts-section" hidden>
     <hr>
-    <p class="sec-lbl">Недавние концерты</p>
+    <p class="sec-lbl" data-i18n="ui.sec_concerts">Недавние концерты</p>
     <div class="concerts-list" id="concerts"></div>
   </section>
 
   <hr>
 
   <section id="contact-section">
-    <p class="sec-lbl">Контакты</p>
+    <p class="sec-lbl" data-i18n="ui.sec_contacts">Контакты</p>
     <div class="contacts-list" id="contact"></div>
   </section>
 
   <section id="friends-section">
     <hr>
-    <p class="sec-lbl">Друзья</p>
+    <p class="sec-lbl" data-i18n="ui.sec_friends">Друзья</p>
     <div class="contacts-list" id="friends"></div>
   </section>
 

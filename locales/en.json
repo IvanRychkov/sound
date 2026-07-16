@@ -1,0 +1,65 @@
+{
+  "ui": {
+    "eyebrow": "Sound engineer · Belgrade",
+    "subtitle": "Live sound, club format, real music.",
+    "contacts_link": "Contacts",
+    "theme_light": "☼ Light",
+    "theme_dark": "☾ Dark",
+    "sec_about": "About",
+    "sec_venues": "Venues",
+    "sec_artists": "Artists",
+    "sec_skills": "Skills",
+    "sec_concerts": "Recent shows",
+    "sec_contacts": "Contacts",
+    "sec_friends": "Friends",
+    "photo_alt": "Ivan Rychkov at the mixing desk",
+    "aria_prev": "Previous photo",
+    "aria_next": "Next photo",
+    "aria_light": "Light theme",
+    "aria_dark": "Dark theme",
+    "lang_switch": "RU"
+  },
+  "bio": [
+    "Hi there!",
+    "I'm <strong>Ivan Rychkov, a live sound engineer</strong>.",
+    "I've been in the profession <span class=\"tooltip-wrap\">since 2016<span class=\"tooltip-text\">Since 2011 if you count college... since 2009 if you count demos on a dictaphone... since the last century if you count everything.</span></span>. I've worked everywhere — from open-air stages and cozy clubs to jams, weddings, corporate events, so nothing surprises me anymore.",
+    "Club concerts are closest to my heart. Five years at the Alexey Kozlov Club were my main school (FOH + MON).",
+    "These days I prefer <strong>project-based work</strong> where I can prepare properly and give it my all.",
+    "Based in <strong>Belgrade</strong> (long story). I speak English fluently and can communicate with local crew.",
+    "If you're an artist (or you organise concerts) and care about <strong>great sound and easy communication</strong> — I'd love to take your show!"
+  ],
+  "stats": [
+    {"num": "1000+", "label": "Live shows"},
+    {"num": "2016", "label": "Since"},
+    {"num": "MGIK", "label": "Education", "tooltip": "Moscow State Institute of Culture, Sound Engineering for Cultural Events and Concert Programs"}
+  ],
+  "venues": [
+    {"name": "Zappa Baza", "sub": "Belgrade"},
+    {"name": "Alexey Kozlov Club", "sub": "Moscow"},
+    {"name": "Andrei Makarevich Jam Club", "sub": "Moscow"},
+    {"name": "Hard Rock Cafe", "sub": "Moscow"},
+    {"name": "16 Tonn Arbat", "sub": "Moscow"},
+    {"name": "Zaryadye", "sub": "Moscow"},
+    {"name": "Luzhniki Park", "sub": "Moscow"},
+    {"name": "Yusupov Garden", "sub": "Saint Petersburg"},
+    {"name": "Tours", "sub": "Krasnodar, Sochi, Vladivostok, Khabarovsk, Voronezh, Suzdal, Bali (how did that one end up here?)"}
+  ],
+  "artists": [
+    {"name": "Golos Omeriki", "sub": "Belgrade"},
+    {"name": "Coffee Shop Kollektiv", "sub": "Belgrade"},
+    {"name": "Zventa Sventana", "sub": "tour"},
+    {"name": "Olga Sinyaeva & AllSee Band", "sub": "tour"},
+    {"name": "Alexey Kozlov & Arsenal", "sub": "club"}
+  ],
+  "skills": [
+    {"name": "Live Sound", "sub": "FOH / MON"},
+    {"name": "Yamaha", "sub": "CL, QL"},
+    {"name": "Allen&Heath", "sub": "dLive, GLD, Q, SQ"},
+    {"name": "Behringer", "sub": "X32, Wing"},
+    {"name": "Multitrack concert recording"}
+  ],
+  "contacts": [
+    {"service": "Telegram", "handle": "@ivan_rychkov", "href": "https://t.me/ivan_rychkov"},
+    {"service": "Instagram", "handle": "@ivanrychkov", "href": "https://www.instagram.com/ivanrychkov/"}
+  ]
+}
