@@ -2,18 +2,6 @@
 //  ДАННЫЕ (только то, что не переводится)
 // =============================================
 
-// Недавние концерты — добавляй сюда новые записи.
-// Секция не показывается, если массив пустой.
-const CONCERTS = [
-    // {
-    //   date: '2025-04-15',       // YYYY-MM-DD, отображается как «15 апр» / "Apr 15"
-    //   artist: 'Голос Омерики',
-    //   city: 'Белград',
-    //   venue: '',
-    //   link: null,               // опционально: ссылка на Instagram-пост или фото
-    // },
-];
-
 const FRIENDS = [
     // {name: 'Коллега 1', info: 'Звукорежиссер', link: '#'},
 ];
@@ -26,10 +14,16 @@ const FRIENDS = [
 const _i18nCache = {};
 let _currentLang = 'ru';
 
+/** Возвращает значение по точечному пути, например 'ui.eyebrow' → t.ui.eyebrow */
 function _resolvePath(obj, path) {
     return path.split('.').reduce((o, k) => o?.[k], obj);
 }
 
+/**
+ * Загружает локаль (если ещё не в кэше) и применяет её к странице.
+ * Сохраняет выбор в localStorage.
+ * @param {string} lang - Код языка, например 'ru' или 'en'
+ */
 async function loadAndApply(lang) {
     if (!_i18nCache[lang]) {
         const res = await fetch(`locales/${lang}.json`);
@@ -40,6 +34,14 @@ async function loadAndApply(lang) {
     applyLocale(_i18nCache[lang]);
 }
 
+/**
+ * Обновляет весь DOM под переданные переводы:
+ * - текстовые узлы через [data-i18n]
+ * - aria-label через [data-i18n-aria]
+ * - alt картинок через [data-i18n-alt]
+ * - биографию и динамические секции через innerHTML / renderXxx()
+ * @param {Object} t - Объект переводов из локального JSON
+ */
 function applyLocale(t) {
     document.documentElement.lang = _currentLang;
 
@@ -66,7 +68,7 @@ function applyLocale(t) {
     const langBtn = document.getElementById('lang-btn');
     if (langBtn) langBtn.textContent = t.ui.lang_switch;
 
-    ['stats', 'venues', 'artists', 'skills', 'contact', 'friends', 'concerts'].forEach(id => {
+    ['stats', 'venues', 'artists', 'skills', 'contact', 'friends'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.innerHTML = '';
     });
@@ -77,7 +79,6 @@ function applyLocale(t) {
     renderSkills(t.skills);
     renderContacts(t.contacts);
     renderFriends();
-    renderConcerts();
     initTooltips();
 }
 
@@ -180,37 +181,6 @@ function renderContacts(contacts) {
 function renderFriends() {
     renderCollection(FRIENDS, 'friends', 'friends-section', f => {
         return `<div class="contact-row"><span class="c-lbl">${f.info}</span><a class="c-val" href="${f.link}">${f.name}</a></div>`;
-    });
-}
-
-function renderConcerts() {
-    if (!CONCERTS.length) return;
-
-    const section = document.getElementById('concerts-section');
-    section.hidden = false;
-
-    const list = document.getElementById('concerts');
-    const fmt = new Intl.DateTimeFormat(_currentLang, {day: 'numeric', month: 'short'});
-
-    CONCERTS.forEach(c => {
-        const dateStr = fmt.format(new Date(c.date));
-        const tag = c.link ? 'a' : 'div';
-        const el = document.createElement(tag);
-        el.className = 'ccard';
-        if (c.link) {
-            el.href = c.link;
-            el.target = '_blank';
-            el.rel = 'noopener noreferrer';
-        }
-        el.innerHTML = `
-      <div class="ccard-meta">${dateStr} · ${c.city}</div>
-      <div class="ccard-body">
-        <div class="ccard-artist">${c.artist}</div>
-        <div class="ccard-venue">${c.venue}</div>
-      </div>
-      ${c.link ? '<div class="ccard-link">↗</div>' : ''}
-    `;
-        list.appendChild(el);
     });
 }
 
