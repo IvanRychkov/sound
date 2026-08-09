@@ -12,7 +12,7 @@ const FRIENDS = [
 // =============================================
 
 const _i18nCache = {};
-let _currentLang = 'ru';
+let _currentLang = 'en';
 
 /** Возвращает значение по точечному пути, например 'ui.eyebrow' → t.ui.eyebrow */
 function _resolvePath(obj, path) {
@@ -24,13 +24,16 @@ function _resolvePath(obj, path) {
  * Сохраняет выбор в localStorage.
  * @param {string} lang - Код языка, например 'ru' или 'en'
  */
-async function loadAndApply(lang) {
+async function loadAndApply(lang, {save = true} = {}) {
     if (!_i18nCache[lang]) {
         const res = await fetch(`locales/${lang}.json`);
         _i18nCache[lang] = await res.json();
     }
     _currentLang = lang;
-    localStorage.setItem('lang', lang);
+    if (save) {
+        localStorage.setItem('lang', lang);
+        localStorage.setItem('langManual', 'true');
+    }
     applyLocale(_i18nCache[lang]);
 }
 
@@ -364,15 +367,18 @@ window.addEventListener('load', () => {
 (async () => {
     const available = await fetch('locales/index.json').then(r => r.json());
 
-    const saved = localStorage.getItem('lang');
-    const preferred = Array.from(navigator.languages ?? [navigator.language])
-        .map(l => l.split('-')[0]);
-    const browser = preferred.filter(l => l !== 'en').find(l => available.includes(l))
-                 ?? preferred.find(l => available.includes(l));
+    const saved = localStorage.getItem('langManual') === 'true'
+        ? localStorage.getItem('lang')
+        : null;
+    const browserLanguages = Array.from(navigator.languages ?? [navigator.language])
+        .filter(Boolean);
+    const hasRussianLocale = browserLanguages.some(l => /^ru(?:-|$)/i.test(l));
+    const browser = hasRussianLocale && available.includes('ru') ? 'ru' : 'en';
     const initial = (saved && available.includes(saved)) ? saved
-                  : browser ?? available[0];
+                  : available.includes(browser) ? browser
+                  : available[0];
 
-    await loadAndApply(initial);
+    await loadAndApply(initial, {save: false});
     initGallery();
 
     document.getElementById('lang-btn')?.addEventListener('click', () => {
