@@ -6,8 +6,6 @@
   --text-secondary: #6b6b67;
   --text-tertiary: #a0a09a;
   --border: rgba(0,0,0,0.1);
-  --radar-stroke: #806343;
-  --radar-fill: rgba(128, 99, 67, 0.17);
 }
 
 /* Переменные для тёмной темы */
@@ -17,8 +15,6 @@
   --text-secondary: #a0a0a0;
   --text-tertiary: #666666;
   --border: rgba(255, 255, 255, 0.1);
-  --radar-stroke: #c6a476;
-  --radar-fill: rgba(198, 164, 118, 0.18);
 }
 
 /* Стили для переключателя темы */
@@ -90,7 +86,6 @@
 }
 
 .tooltip-wrap:hover .tooltip-text,
-.tooltip-wrap:focus-visible .tooltip-text,
 .tooltip-wrap.active .tooltip-text {
   visibility: visible;
   opacity: 1;
@@ -260,90 +255,6 @@ hr {
 
 .bio strong { color: var(--text); font-weight: 500; }
 
-#specialization-section {
-  margin-top: 2.75rem;
-}
-
-.radar-scale {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--text-tertiary);
-  margin-top: -0.45rem;
-}
-
-.radar-chart {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 640 / 520;
-  margin-top: 0.75rem;
-}
-
-.radar-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.radar-grid,
-.radar-axis {
-  fill: none;
-  stroke: var(--border);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-.radar-area {
-  fill: var(--radar-fill);
-  stroke: var(--radar-stroke);
-  stroke-width: 2;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.radar-point {
-  fill: var(--bg);
-  stroke: var(--radar-stroke);
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-}
-
-.radar-label {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: max-content;
-  max-width: min(150px, 34vw);
-  padding: 4px 6px;
-  background: var(--bg);
-  border: 0;
-  border-bottom: 1px dotted var(--text-tertiary);
-  color: var(--text-secondary);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  line-height: 1.35;
-  text-align: center;
-  cursor: help;
-  z-index: 2;
-}
-
-.radar-label:hover,
-.radar-label:focus-visible,
-.radar-label.active {
-  color: var(--text);
-}
-
-.radar-label-score {
-  color: var(--radar-stroke);
-  white-space: nowrap;
-}
-
-.radar-label .tooltip-text {
-  text-transform: none;
-  letter-spacing: normal;
-  font-weight: 400;
-}
-
 .sec-lbl {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
@@ -485,6 +396,4 @@ hr {
   /* Исправление для Telegram/iOS: гарантируем, что длинные слова не ломают ширину */
   h1 { word-wrap: break-word; }
   .bio { width: 100%; }
-  .radar-chart { margin-top: 1rem; }
-  .radar-label { max-width: 112px; padding-inline: 3px; }
 }
