@@ -6,6 +6,8 @@
     "theme_light": "☼ Light",
     "theme_dark": "☾ Dark",
     "sec_about": "About",
+    "sec_specialization": "Specialization",
+    "specialization_scale": "Professional focus · 1–5",
     "sec_venues": "Venues",
     "sec_artists": "Artists",
     "sec_skills": "Skills",
@@ -33,6 +35,16 @@
     {"num": "2016", "label": "Since"},
     {"num": "MGIK", "label": "Education", "tooltip": "Moscow State Institute of Culture, Sound Engineering for Cultural Events and Concert Programs"}
   ],
+  "specialization": {
+    "ariaLabel": "Professional specialization chart on a scale from one to five",
+    "items": [
+      {"name": "FOH", "value": 5, "description": "Primary focus: 1,000+ shows, from clubs and open-air stages to touring productions."},
+      {"name": "Communication", "value": 5, "description": "I work with artists, promoters, venues and technical crews, and communicate fluently in English."},
+      {"name": "MON", "value": 4, "description": "Five years working FOH + MON at the Alexey Kozlov Club."},
+      {"name": "Mixing", "value": 3, "description": "An adjacent practice: multitrack concert recording and follow-up work with the material."},
+      {"name": "System design", "value": 2, "description": "Not my primary focus: I leave deep design and tuning of large PA systems to dedicated system engineers."}
+    ]
+  },
   "venues": [
     {"name": "Zappa Baza", "sub": "Belgrade"},
     {"name": "Alexey Kozlov Club", "sub": "Moscow"},

@@ -71,12 +71,13 @@ function applyLocale(t) {
     const langBtn = document.getElementById('lang-btn');
     if (langBtn) langBtn.textContent = t.ui.lang_switch;
 
-    ['stats', 'venues', 'artists', 'skills', 'contact', 'friends'].forEach(id => {
+    ['stats', 'specialization', 'venues', 'artists', 'skills', 'contact', 'friends'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.innerHTML = '';
     });
 
     renderStats(t.stats);
+    renderSpecialization(t.specialization);
     renderVenues(t.venues);
     renderArtists(t.artists);
     renderSkills(t.skills);
@@ -128,6 +129,109 @@ function renderStats(stats) {
         return `<div><div class="stat-num">${numContent}</div><div class="stat-lbl">${s.label}</div></div>`;
     });
     updateAge();
+}
+
+function renderSpecialization(data) {
+    const section = document.getElementById('specialization-section');
+    const container = document.getElementById('specialization');
+
+    if (!section || !container || !data?.items?.length) {
+        if (section) section.hidden = true;
+        return;
+    }
+
+    section.hidden = false;
+    container.innerHTML = '';
+
+    const width = 640;
+    const height = 520;
+    const centerX = 320;
+    const centerY = 260;
+    const radius = 170;
+    const labels = [
+        {x: 50, y: 7},
+        {x: 82, y: 35},
+        {x: 70, y: 88},
+        {x: 30, y: 88},
+        {x: 18, y: 35}
+    ];
+    const namespace = 'http://www.w3.org/2000/svg';
+
+    const chart = document.createElement('div');
+    chart.className = 'radar-chart';
+    chart.setAttribute('aria-label', data.ariaLabel);
+
+    const svg = document.createElementNS(namespace, 'svg');
+    svg.classList.add('radar-svg');
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svg.setAttribute('aria-hidden', 'true');
+
+    const point = (index, factor = 1) => {
+        const angle = -Math.PI / 2 + index * Math.PI * 2 / data.items.length;
+        return [
+            centerX + Math.cos(angle) * radius * factor,
+            centerY + Math.sin(angle) * radius * factor
+        ];
+    };
+
+    const points = factors => factors
+        .map((factor, index) => point(index, factor).join(','))
+        .join(' ');
+
+    for (let level = 1; level <= 5; level++) {
+        const ring = document.createElementNS(namespace, 'polygon');
+        ring.classList.add('radar-grid');
+        ring.setAttribute('points', points(data.items.map(() => level / 5)));
+        svg.appendChild(ring);
+    }
+
+    data.items.forEach((item, index) => {
+        const [x, y] = point(index);
+        const axis = document.createElementNS(namespace, 'line');
+        axis.classList.add('radar-axis');
+        axis.setAttribute('x1', centerX);
+        axis.setAttribute('y1', centerY);
+        axis.setAttribute('x2', x);
+        axis.setAttribute('y2', y);
+        svg.appendChild(axis);
+    });
+
+    const area = document.createElementNS(namespace, 'polygon');
+    area.classList.add('radar-area');
+    area.setAttribute('points', points(data.items.map(item => item.value / 5)));
+    svg.appendChild(area);
+
+    data.items.forEach((item, index) => {
+        const [x, y] = point(index, item.value / 5);
+        const marker = document.createElementNS(namespace, 'circle');
+        marker.classList.add('radar-point');
+        marker.setAttribute('cx', x);
+        marker.setAttribute('cy', y);
+        marker.setAttribute('r', 4);
+        svg.appendChild(marker);
+
+        const label = document.createElement('button');
+        label.type = 'button';
+        label.className = 'radar-label tooltip-wrap';
+        label.style.left = `${labels[index].x}%`;
+        label.style.top = `${labels[index].y}%`;
+        label.setAttribute('aria-label', `${item.name}: ${item.value}/5. ${item.description}`);
+
+        const name = document.createElement('span');
+        name.textContent = item.name;
+        const score = document.createElement('span');
+        score.className = 'radar-label-score';
+        score.textContent = ` · ${item.value}/5`;
+        const tooltip = document.createElement('span');
+        tooltip.className = 'tooltip-text';
+        tooltip.textContent = item.description;
+
+        label.append(name, score, tooltip);
+        chart.appendChild(label);
+    });
+
+    chart.prepend(svg);
+    container.appendChild(chart);
 }
 
 function updateAge() {
